@@ -13,10 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MedicalRecordDto implements CrudDto {
+	@NotBlank(message = "First Name is Required.")
 	private String firstName;
 
+	@NotBlank(message = "Last Name is Required.")
 	private String lastName;
 
+	@NotBlank(message = "Birthdate is Required.")
 	private Date birthdate;
 
 	private List<MedicationDto> medications = new ArrayList<>();
