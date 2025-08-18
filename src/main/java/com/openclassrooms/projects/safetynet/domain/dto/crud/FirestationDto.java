@@ -11,8 +11,10 @@ import lombok.Setter;
 @Getter
 public class FirestationDto implements CrudDto {
 
+	@NotBlank(message = "Address is Required.")
 	private String address;
 
+	@NotBlank(message = "Station is Required.")
 	private Integer station;
 
 	/**
