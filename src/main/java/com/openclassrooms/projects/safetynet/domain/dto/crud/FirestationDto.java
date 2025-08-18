@@ -4,14 +4,20 @@ import com.openclassrooms.projects.safetynet.domain.interfaces.CrudDto;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Firestation dto.
+ */
 @Setter
 @Getter
 public class FirestationDto implements CrudDto {
-// region fields
-	private String address;
-	private Integer station;
-//endregion
 
+	private String address;
+
+	private Integer station;
+
+	/**
+	 * Instantiates a new Firestation dto.
+	 */
 	public FirestationDto() {
 		// parameterless constructor for code coverage
 	}

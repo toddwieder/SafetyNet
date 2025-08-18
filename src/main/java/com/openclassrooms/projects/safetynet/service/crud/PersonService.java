@@ -7,10 +7,19 @@ import com.openclassrooms.projects.safetynet.repository.crud.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Person service.
+ */
 @Service
 public class PersonService extends CrudServiceBase<Person, PersonDto> {
+	/**
+	 * Instantiates a new Person service.
+	 *
+	 * @param mapper     the mapper
+	 * @param repository the repository
+	 */
 	@Autowired
-	public PersonService(CrudMapper<Person, PersonDto> mapper, CrudRepository<Person> repository) {
+	public PersonService(final CrudMapper<Person, PersonDto> mapper, final CrudRepository<Person> repository) {
 		super(mapper, repository);
 	}
 }

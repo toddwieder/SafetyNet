@@ -13,101 +13,146 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Safety net api.
+ */
 @RestController
 @RequestMapping("/")
 public class SafetyNetApi {
 
-// region fields
 	private final SafetyNetService service;
+	/**
+	 * The Logger.
+	 */
 	Logger logger = LoggerFactory.getLogger(SafetyNetApi.class);
-//endregion
 
-// region constructors
+	/**
+	 * Instantiates a new Safety net api.
+	 *
+	 * @param safetyNetService the safety net service
+	 */
 	@Autowired
-	public SafetyNetApi(SafetyNetService safetyNetService) {
-		this.service = safetyNetService;
+	public SafetyNetApi(final SafetyNetService safetyNetService) {
+		service = safetyNetService;
 	}
-// endregion
 
-// region public methods
+	/**
+	 * Gets children by address.
+	 *
+	 * @param address the address
+	 * @return the children by address
+	 */
 	@GetMapping("/childAlert")
-	public ResponseEntity getChildrenByAddress(@RequestParam("address") String address) {
+	public ResponseEntity getChildrenByAddress(@RequestParam("address") final String address) {
 		try {
-			var response = this.service.getChildrenByAddress(address);
+			final var response = service.getChildrenByAddress(address);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets email addresses by city.
+	 *
+	 * @param city the city
+	 * @return the email addresses by city
+	 */
 	@GetMapping("/communityEmail")
-	public ResponseEntity getEmailAddressesByCity(@RequestParam("city") String city) {
+	public ResponseEntity getEmailAddressesByCity(@RequestParam("city") final String city) {
 		try {
-			var response = this.service.getEmailAddressesByCity(city);
+			final var response = service.getEmailAddressesByCity(city);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets households by firestations.
+	 *
+	 * @param stationNumbers the station numbers
+	 * @return the households by firestations
+	 */
 	@GetMapping("/flood/stations")
-	public ResponseEntity getHouseholdsByFirestations(@RequestParam("stations") List<Integer> stationNumbers) {
+	public ResponseEntity getHouseholdsByFirestations(@RequestParam("stations") final List<Integer> stationNumbers) {
 		try {
-			var response = this.service.getHouseholdsByFirestations(stationNumbers);
+			final var response = service.getHouseholdsByFirestations(stationNumbers);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets persons and firestation by address.
+	 *
+	 * @param address the address
+	 * @return the persons and firestation by address
+	 */
 	@GetMapping("/fire")
-	public ResponseEntity getPersonsAndFirestationByAddress(@RequestParam("address") String address) {
+	public ResponseEntity getPersonsAndFirestationByAddress(@RequestParam("address") final String address) {
 		try {
-			var response = this.service.getPersonsAndFirestationByAddress(address);
+			final var response = service.getPersonsAndFirestationByAddress(address);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets persons by last name.
+	 *
+	 * @param lastName the last name
+	 * @return the persons by last name
+	 */
 	@GetMapping("/personInfo")
-	public ResponseEntity getPersonsByLastName(@RequestParam("lastName") String lastName) {
+	public ResponseEntity getPersonsByLastName(@RequestParam("lastName") final String lastName) {
 		try {
-			var response = this.service.getPersonsByLastName(lastName);
+			final var response = service.getPersonsByLastName(lastName);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets persons by station number.
+	 *
+	 * @param stationNumber the station number
+	 * @return the persons by station number
+	 */
 	@GetMapping("/firestation")
-	public ResponseEntity getPersonsByStationNumber(@RequestParam("stationNumber") int stationNumber) {
+	public ResponseEntity getPersonsByStationNumber(@RequestParam("stationNumber") final int stationNumber) {
 		try {
-			var response = this.service.getPersonsByStationNumber(stationNumber);
+			final var response = service.getPersonsByStationNumber(stationNumber);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
 
+	/**
+	 * Gets phone numbers by firestation.
+	 *
+	 * @param stationNumber the station number
+	 * @return the phone numbers by firestation
+	 */
 	@GetMapping("/phoneAlert")
-	public ResponseEntity getPhoneNumbersByFirestation(@RequestParam("firestation") int stationNumber) {
+	public ResponseEntity getPhoneNumbersByFirestation(@RequestParam("firestation") final int stationNumber) {
 		try {
-			var response = this.service.getPhoneNumbersByStationNumber(stationNumber);
+			final var response = service.getPhoneNumbersByStationNumber(stationNumber);
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			return logAndReturnError(e);
+		} catch (final Exception e) {
+			return this.logAndReturnError(e);
 		}
 	}
-// endregion
 
-// region private methods
 	@NotNull
-	private ResponseEntity logAndReturnError(Exception e) {
-		this.logger.error(e.getMessage());
+	private ResponseEntity logAndReturnError(final Exception e) {
+		logger.error(e.getMessage());
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-// endregion
 }
 
 

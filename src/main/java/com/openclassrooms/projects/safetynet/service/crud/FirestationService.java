@@ -7,8 +7,17 @@ import com.openclassrooms.projects.safetynet.repository.crud.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Firestation service.
+ */
 @Service
 public class FirestationService extends CrudServiceBase<Firestation, FirestationDto> {
+	/**
+	 * Instantiates a new Firestation service.
+	 *
+	 * @param mapper     the mapper
+	 * @param repository the repository
+	 */
 	@Autowired
 	public FirestationService(CrudMapper<Firestation, FirestationDto> mapper,
 	                          CrudRepository<Firestation> repository) {

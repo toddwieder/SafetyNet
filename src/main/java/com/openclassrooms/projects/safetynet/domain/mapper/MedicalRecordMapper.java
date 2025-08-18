@@ -5,9 +5,11 @@ import com.openclassrooms.projects.safetynet.domain.dto.crud.MedicationDto;
 import com.openclassrooms.projects.safetynet.domain.model.MedicalRecord;
 import com.openclassrooms.projects.safetynet.domain.model.Medication;
 import com.openclassrooms.projects.safetynet.domain.interfaces.CrudMapper;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Medical record mapper.
+ */
 @Component
 public class MedicalRecordMapper implements CrudMapper<MedicalRecord, MedicalRecordDto> {
 	public MedicalRecord toModel(MedicalRecordDto dto) {

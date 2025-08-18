@@ -19,8 +19,8 @@ public enum TestHelper {
 	;
 
 	public static ArrayList<Person> getArrayWithOnePerson() {
-		var people = new ArrayList<Person>();
-		var person = new Person();
+		final var people = new ArrayList<Person>();
+		final var person = new Person();
 		person.setFirstName("John");
 		person.setLastName("Doe");
 		person.setAddress("123 Main St");
@@ -29,12 +29,12 @@ public enum TestHelper {
 		person.setEmail("jdoe@none.com");
 		person.setPhone("555-555-5555");
 		person.setAge(5);
-		var medicalRecord = new MedicalRecord();
+		final var medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName("John");
 		medicalRecord.setLastName("Doe");
 		medicalRecord.setBirthdate(new Date("1/1/2001"));
 		medicalRecord.setAllergies(List.of("none"));
-		var medication = new Medication();
+		final var medication = new Medication();
 		medication.setDosage("100mg");
 		medication.setDrug("Asperin");
 		medicalRecord.setMedications(List.of(medication));
@@ -45,22 +45,23 @@ public enum TestHelper {
 	}
 
 	public static List<PersonInfoDto> getArrayWithOnePersonInfoDto() {
-		return List.of(new PersonInfoDto(
-				"John",
-				"Doe",
-				"123 Main St",
-				"555-555-5555"
-		));
+		return List.of(new PersonInfoDto("John", "Doe", "123 Main St", "555-555-5555"));
+	}
+
+	public static List<Person> getArrayWithOnePersonWithHousehold() {
+		final var people = TestHelper.getArrayWithOnePerson();
+		people.getFirst().setHouseholdMembers(TestHelper.getArrayWithTwoPeople());
+		return people;
 	}
 
 	public static List<Firestation> getArrayWithTwoFirestations() {
-		List<Firestation> firestations = new ArrayList<Firestation>();
-		var firestation1 = new Firestation();
+		final List<Firestation> firestations = new ArrayList<Firestation>();
+		final var firestation1 = new Firestation();
 		firestation1.setAddress("123 Main St");
 		firestation1.setStation(1);
 		firestations.add(firestation1);
 
-		var firestation2 = new Firestation();
+		final var firestation2 = new Firestation();
 		firestation2.setAddress("234 Pine Ave");
 		firestation2.setStation(2);
 		firestations.add(firestation2);
@@ -68,9 +69,9 @@ public enum TestHelper {
 
 	}
 
-	public static List<Person> getArrayWithTwoPeople(){
-		var people = getArrayWithOnePerson();
-		var person = new Person();
+	public static List<Person> getArrayWithTwoPeople() {
+		final var people = TestHelper.getArrayWithOnePerson();
+		final var person = new Person();
 		person.setFirstName("Jane");
 		person.setLastName("Smith");
 		person.setAddress("234 Somewhere St");
@@ -79,12 +80,12 @@ public enum TestHelper {
 		person.setEmail("jsmith@aol.com");
 		person.setPhone("777-777-7777");
 		person.setAge(25);
-		var medicalRecord = new MedicalRecord();
+		final var medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName("Jane");
 		medicalRecord.setLastName("Smith");
 		medicalRecord.setBirthdate(new Date("1/1/1971"));
 		medicalRecord.setAllergies(List.of("none"));
-		var medication = new Medication();
+		final var medication = new Medication();
 		medication.setDosage("100mg");
 		medication.setDrug("Asperin");
 		medicalRecord.setMedications(List.of(medication));
@@ -93,10 +94,12 @@ public enum TestHelper {
 		people.add(person);
 		return people;
 	}
-	public static List<Person> getArrayWithOnePersonWithHousehold(){
-		var people = getArrayWithOnePerson();
-		people.getFirst().setHouseholdMembers(getArrayWithTwoPeople());
-		return people;
+
+	public static Firestation getFirestation() {
+		final var firestation = new Firestation();
+		firestation.setStation(1);
+		firestation.setAddress("123 Main St");
+		return firestation;
 	}
 
 	public static FirestationDto getFirestationDto() {
@@ -104,23 +107,16 @@ public enum TestHelper {
 	}
 
 	public static Map<Integer, Map<String, List<Person>>> getFirestationHouseholds() {
-		var expected = new HashMap<Integer, Map<String, List<Person>>>();
-		Map<String, List<Person>> households = new HashMap<String, List<Person>>();
-		var person = TestHelper.getArrayWithOnePersonWithHousehold();
+		final var expected = new HashMap<Integer, Map<String, List<Person>>>();
+		final Map<String, List<Person>> households = new HashMap<String, List<Person>>();
+		final var person = getArrayWithOnePersonWithHousehold();
 		households.put("123 Main St", person);
 		expected.put(1, households);
 		return expected;
 	}
 
-	public static Firestation getFirestation() {
-		var firestation = new Firestation();
-		firestation.setStation(1);
-		firestation.setAddress("123 Main St");
-		return firestation;
-	}
-
 	public static MedicalRecord getMedicalRecord() {
-		var medicalRecord = new MedicalRecord();
+		final var medicalRecord = new MedicalRecord();
 		medicalRecord.setFirstName("Jane");
 		medicalRecord.setLastName("Smith");
 		medicalRecord.setBirthdate(new Date("1/1/1971"));
@@ -134,7 +130,7 @@ public enum TestHelper {
 	}
 
 	public static Person getPerson() {
-		var person = new Person();
+		final var person = new Person();
 		person.setFirstName("Mary");
 		person.setLastName("Jones");
 		person.setAddress("9 B Ave.");
@@ -150,10 +146,10 @@ public enum TestHelper {
 	}
 
 	public static SafetyNetData getSafetyNetData() {
-		var safetyNetData= new SafetyNetData();
-		safetyNetData.setPersons(getArrayWithTwoPeople());
-		safetyNetData.setFirestations(new ArrayList<Firestation>(List.of(getFirestation())));
-		safetyNetData.setMedicalRecords(new ArrayList<MedicalRecord>(List.of(getMedicalRecord())));
+		final var safetyNetData = new SafetyNetData();
+		safetyNetData.setPersons(TestHelper.getArrayWithTwoPeople());
+		safetyNetData.setFirestations(new ArrayList<Firestation>(List.of(TestHelper.getFirestation())));
+		safetyNetData.setMedicalRecords(new ArrayList<MedicalRecord>(List.of(TestHelper.getMedicalRecord())));
 		return safetyNetData;
 	}
 }

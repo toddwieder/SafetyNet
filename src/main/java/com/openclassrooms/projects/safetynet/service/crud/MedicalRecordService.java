@@ -7,11 +7,20 @@ import com.openclassrooms.projects.safetynet.repository.crud.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Medical record service.
+ */
 @Service
 public class MedicalRecordService extends CrudServiceBase<MedicalRecord, MedicalRecordDto> {
+	/**
+	 * Instantiates a new Medical record service.
+	 *
+	 * @param mapper     the mapper
+	 * @param repository the repository
+	 */
 	@Autowired
-	public MedicalRecordService(CrudMapper<MedicalRecord, MedicalRecordDto> mapper,
-	                            CrudRepository<MedicalRecord> repository) {
+	public MedicalRecordService(final CrudMapper<MedicalRecord, MedicalRecordDto> mapper,
+	                            final CrudRepository<MedicalRecord> repository) {
 		super(mapper, repository);
 	}
 }

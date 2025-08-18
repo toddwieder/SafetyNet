@@ -13,77 +13,92 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Safety net service.
+ */
 @Service
 public class SafetyNetServiceImpl implements SafetyNetService {
+	/**
+	 * The constant AGE_OF_ADULTHOOD.
+	 */
+// region fields
 	public static final int AGE_OF_ADULTHOOD = 18;
+
 	private final SafetyNetRepository repository;
 
+	/**
+	 * Instantiates a new Safety net service.
+	 *
+	 * @param repository the repository
+	 */
 	@Autowired
-	public SafetyNetServiceImpl(SafetyNetRepository repository) {
+	public SafetyNetServiceImpl(final SafetyNetRepository repository) {
 		this.repository = repository;
 	}
 
 	@Override
-	public PersonsByStationNumberDto getPersonsByStationNumber(int stationNumber) {
-		var persons= this.repository.getPersonsByStationNumber(stationNumber);
-		var response = new PersonsByStationNumberDto();
-		response.setPersons(persons.stream()
-		                           .map(SafetyNetApiMapper::toPersonsByStationNumberDtoPersonDto)
-		                           .toList());
-		response.setNumberOfAdults(persons.stream().filter(p -> p.getAge() > AGE_OF_ADULTHOOD).count());
-		response.setNumberOfChildren(response.getPersons().size() - response.getNumberOfAdults());
-		return response;
+	public ChildrenByAddressDto getChildrenByAddress(final String address) {
+		final var persons = repository.getChildrenByAddress(address);
+		return new ChildrenByAddressDto(persons.stream().filter(p -> AGE_OF_ADULTHOOD >= p.getAge())
+		                                       .map(SafetyNetApiMapper::toChildrenByAddressChildrenDto)
+		                                       .toList(), persons.stream()
+		                                                         .filter(p -> AGE_OF_ADULTHOOD < p.getAge())
+		                                                         .map(SafetyNetApiMapper::toChildrenByAddressAdultDto)
+		                                                         .toList());
 	}
 
 	@Override
-	public List<String> getPhoneNumbersByStationNumber(int stationNumber) {
-		return this.repository.getPhoneNumbersByStationNumber(stationNumber);
+	public List<String> getEmailAddressesByCity(final String city) {
+		return repository.getEmailAddressesByCity(city);
 	}
 
 	@Override
-	public ChildrenByAddressDto getChildrenByAddress(String address) {
-		var persons = this.repository.getChildrenByAddress(address);
-		return new ChildrenByAddressDto(persons.stream().filter(p -> p.getAge() <= AGE_OF_ADULTHOOD)
-		                                               .map(SafetyNetApiMapper::toChildrenByAddressChildrenDto).toList(),
-				persons.stream()
-				       .filter(p -> p.getAge() > AGE_OF_ADULTHOOD)
-				       .map(SafetyNetApiMapper::toChildrenByAddressAdultDto)
-				       .toList());
-	}
-
-	@Override
-	public List<HouseholdByFirestationDto> getHouseholdsByFirestations(List<Integer> stationNumbers) {
-		var householdMap = this.repository.getHouseholdsByFirestations(stationNumbers);
-		List<HouseholdByFirestationDto> response = new ArrayList<>();
+	public List<HouseholdByFirestationDto> getHouseholdsByFirestations(final List<Integer> stationNumbers) {
+		final var householdMap = repository.getHouseholdsByFirestations(stationNumbers);
+		final List<HouseholdByFirestationDto> response = new ArrayList<>();
 		householdMap.forEach((firestationNumber, personsByAddress) -> {
-			var firestation = new HouseholdByFirestationDto(firestationNumber);
-			personsByAddress.forEach((address, persons) ->
-																			firestation.getAddresses()
-																			           .add(new HouseholdsByAddressDto(address, persons.stream()
-																			                                                           .map(SafetyNetApiMapper::toResidentsByAddressPersonDto)
-																			                                                           .toList())));
+			final var firestation = new HouseholdByFirestationDto(firestationNumber);
+			personsByAddress.forEach((address, persons) -> firestation.getAddresses()
+			                                                          .add(new HouseholdsByAddressDto(address, persons.stream()
+			                                                                                                          .map(SafetyNetApiMapper::toResidentsByAddressPersonDto)
+			                                                                                                          .toList())));
 			response.add(firestation);
 		});
 		return response;
 	}
 
 	@Override
-	public PersonsAndFirestationByAddressDto getPersonsAndFirestationByAddress(String address) {
-		var persons = this.repository.getPersonsAndFirestationByAddress(address);
-		var response = new PersonsAndFirestationByAddressDto(persons.getFirst()
-		                                                            .getFirestationNumber());
-		response.setResidents(persons.stream().map(SafetyNetApiMapper::toResidentsByAddressPersonDto).toList());
+	public PersonsAndFirestationByAddressDto getPersonsAndFirestationByAddress(final String address) {
+		final var persons = repository.getPersonsAndFirestationByAddress(address);
+		final var response = new PersonsAndFirestationByAddressDto(persons.getFirst()
+		                                                                  .getFirestationNumber());
+		response.setResidents(persons.stream()
+		                             .map(SafetyNetApiMapper::toResidentsByAddressPersonDto)
+		                             .toList());
 		return response;
 	}
 
 	@Override
-	public List<String> getEmailAddressesByCity(String city) {
-		return this.repository.getEmailAddressesByCity(city);
+	public List<PersonInfoDto> getPersonsByLastName(final String lastName) {
+		final var persons = repository.getPersonsByLastName(lastName);
+		return persons.stream().map(SafetyNetApiMapper::toResidentsByAddressPersonDto).toList();
 	}
 
 	@Override
-	public List<PersonInfoDto> getPersonsByLastName(String lastName) {
-		var persons = this.repository.getPersonsByLastName(lastName);
-		return persons.stream().map(SafetyNetApiMapper::toResidentsByAddressPersonDto).toList();
+	public PersonsByStationNumberDto getPersonsByStationNumber(final int stationNumber) {
+		final var persons = repository.getPersonsByStationNumber(stationNumber);
+		final var response = new PersonsByStationNumberDto();
+		response.setPersons(persons.stream()
+		                           .map(SafetyNetApiMapper::toPersonsByStationNumberDtoPersonDto)
+		                           .toList());
+		response.setNumberOfAdults(persons.stream().filter(p -> AGE_OF_ADULTHOOD < p.getAge())
+		                                  .count());
+		response.setNumberOfChildren(response.getPersons().size() - response.getNumberOfAdults());
+		return response;
+	}
+
+	@Override
+	public List<String> getPhoneNumbersByStationNumber(final int stationNumber) {
+		return repository.getPhoneNumbersByStationNumber(stationNumber);
 	}
 }

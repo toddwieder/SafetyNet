@@ -5,6 +5,9 @@ import com.openclassrooms.projects.safetynet.domain.model.Person;
 import com.openclassrooms.projects.safetynet.domain.interfaces.CrudMapper;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Person mapper.
+ */
 @Component
 public class PersonMapper implements CrudMapper<Person, PersonDto> {
 

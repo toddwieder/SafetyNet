@@ -5,6 +5,9 @@ import com.openclassrooms.projects.safetynet.domain.dto.crud.FirestationDto;
 import com.openclassrooms.projects.safetynet.domain.interfaces.CrudMapper;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Firestation mapper.
+ */
 @Component
 public class FirestationMapper implements CrudMapper<Firestation, FirestationDto> {
 

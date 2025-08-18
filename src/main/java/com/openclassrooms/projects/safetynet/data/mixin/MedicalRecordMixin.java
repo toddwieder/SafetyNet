@@ -9,6 +9,9 @@ import com.openclassrooms.projects.safetynet.data.converter.StringToMedicationCo
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Medical record mixin.
+ */
 public abstract class MedicalRecordMixin {
 	private String firstName;
 	private String lastName;

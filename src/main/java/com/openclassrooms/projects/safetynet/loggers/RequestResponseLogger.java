@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * The type Request response logger.
+ */
 @Slf4j
 @AllArgsConstructor
 @Component
@@ -23,6 +26,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class RequestResponseLogger {
 	private final ObjectMapper objectMapper;
 
+	/**
+	 * Log http request response object.
+	 *
+	 * @param joinPoint the join point
+	 * @return the object
+	 * @throws Throwable the throwable
+	 */
 	@Around("@annotation(org.springframework.web.bind.annotation.PostMapping) || " +
 			"@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
 			"@annotation(org.springframework.web.bind.annotation.PutMapping) ||"  +

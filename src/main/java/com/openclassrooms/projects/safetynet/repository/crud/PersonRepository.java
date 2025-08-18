@@ -5,14 +5,21 @@ import com.openclassrooms.projects.safetynet.domain.model.Person;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Person repository.
+ */
 @Service
 public class PersonRepository extends CrudRepositoryBase<Person> {
 
+	/**
+	 * Instantiates a new Person repository.
+	 *
+	 * @param adapter the adapter
+	 */
 	protected PersonRepository(DataAdapter adapter) {
 		super(adapter);
 	}
 
-	// region public methods
 	@Override
 	public Person add(Person person) {
 		if (this.adapter.getPerson(person) == null) {
@@ -43,6 +50,5 @@ public class PersonRepository extends CrudRepositoryBase<Person> {
 		}
 		return null;
 	}
-// endregion
 }
 

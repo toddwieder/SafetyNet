@@ -5,6 +5,9 @@ import com.openclassrooms.projects.safetynet.domain.model.MedicalRecord;
 import com.openclassrooms.projects.safetynet.domain.model.Person;
 import java.util.List;
 
+/**
+ * The type Person mixin.
+ */
 public abstract class PersonMixin {
 	private String firstName;
 	private String lastName;

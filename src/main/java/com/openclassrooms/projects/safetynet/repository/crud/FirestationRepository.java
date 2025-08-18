@@ -5,14 +5,21 @@ import com.openclassrooms.projects.safetynet.domain.model.Firestation;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
+/**
+ * The type Firestation repository.
+ */
 @Repository
 public class FirestationRepository extends CrudRepositoryBase<Firestation> implements CrudRepository<Firestation> {
 
+	/**
+	 * Instantiates a new Firestation repository.
+	 *
+	 * @param adapter the adapter
+	 */
 	protected FirestationRepository(DataAdapter adapter) {
 		super(adapter);
 	}
 
-	// region public methods
 	@Override
 	public Firestation add(Firestation firestation) {
 		if (this.adapter.getFirestation(firestation) == null) {
@@ -43,5 +50,4 @@ public class FirestationRepository extends CrudRepositoryBase<Firestation> imple
 		}
 		return null;
 	}
-// endregion
 }

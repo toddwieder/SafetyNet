@@ -8,10 +8,24 @@ import com.openclassrooms.projects.safetynet.domain.model.SafetyNetData;
 import java.util.List;
 import org.springframework.boot.jackson.JsonMixin;
 
+/**
+ * The type Safety net data mixin.
+ */
 @JsonMixin(SafetyNetData.class)
 public class SafetyNetDataMixin {
-	public List<Person> persons;
+	/**
+	 * The Firestations.
+	 */
 	public List<Firestation> firestations;
+
+	/**
+	 * The Medical records.
+	 */
 	@JsonProperty("medicalrecords")
 	public List<MedicalRecord> medicalRecords;
+
+	/**
+	 * The Persons.
+	 */
+	public List<Person> persons;
 }

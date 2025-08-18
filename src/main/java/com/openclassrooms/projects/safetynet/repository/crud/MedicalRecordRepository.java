@@ -5,41 +5,48 @@ import com.openclassrooms.projects.safetynet.domain.model.MedicalRecord;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Medical record repository.
+ */
 @Service
 public class MedicalRecordRepository extends CrudRepositoryBase<MedicalRecord> {
 
-	protected MedicalRecordRepository(DataAdapter adapter) {
+	/**
+	 * Instantiates a new Medical record repository.
+	 *
+	 * @param adapter the adapter
+	 */
+	protected MedicalRecordRepository(final DataAdapter adapter) {
 		super(adapter);
 	}
 
-	// region public methods
 	@Override
-	public MedicalRecord add(MedicalRecord medicalRecord) {
-		if (this.adapter.getMedicalRecord(medicalRecord) == null) {
-			return this.adapter.addMedicalRecord(medicalRecord);
+	public MedicalRecord add(final MedicalRecord medicalRecord) {
+		if (null == this.adapter.getMedicalRecord(medicalRecord)) {
+			return adapter.addMedicalRecord(medicalRecord);
 		}
 		return medicalRecord;
 	}
 
 	@Override
-	public boolean delete(MedicalRecord medicalRecord) {
-		return this.adapter.deleteMedicalRecord(medicalRecord);
+	public boolean delete(final MedicalRecord medicalRecord) {
+		return adapter.deleteMedicalRecord(medicalRecord);
 	}
 
 	@Override
-	public MedicalRecord get(MedicalRecord medicalRecord) {
-		return this.adapter.getMedicalRecord(medicalRecord);
+	public MedicalRecord get(final MedicalRecord medicalRecord) {
+		return adapter.getMedicalRecord(medicalRecord);
 	}
 
 	@Override
 	public List<MedicalRecord> getAll() {
-		return this.adapter.medicalRecords().toList();
+		return adapter.medicalRecords().toList();
 	}
 
 	@Override
-	public MedicalRecord update(MedicalRecord medicalRecord) {
-		if (this.adapter.getMedicalRecord(medicalRecord) != null) {
-			return this.adapter.updateMedicalRecord(medicalRecord);
+	public MedicalRecord update(final MedicalRecord medicalRecord) {
+		if (null != this.adapter.getMedicalRecord(medicalRecord)) {
+			return adapter.updateMedicalRecord(medicalRecord);
 		}
 		return null;
 	}

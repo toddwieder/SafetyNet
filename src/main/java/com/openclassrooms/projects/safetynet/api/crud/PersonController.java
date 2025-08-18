@@ -7,15 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Person controller.
+ */
 @RestController
 @RequestMapping("/person")
 public class PersonController extends CrudControllerBase<PersonDto> {
 
-// region constructors
+	/**
+	 * Instantiates a new Person controller.
+	 *
+	 * @param service the service
+	 */
 	@Autowired
-	public PersonController(CrudService<PersonDto> service) {
+	public PersonController(final CrudService<PersonDto> service) {
 		super(service);
-		this.logger = LoggerFactory.getLogger(PersonController.class);
+		logger = LoggerFactory.getLogger(PersonController.class);
 	}
-// endregion
 }

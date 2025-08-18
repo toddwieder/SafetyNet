@@ -7,15 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Medical record controller.
+ */
 @RestController
 @RequestMapping("/medicalRecord")
 public class MedicalRecordController extends CrudControllerBase<MedicalRecordDto> {
 
-// region constructors
+	/**
+	 * Instantiates a new Medical record controller.
+	 *
+	 * @param service the service
+	 */
 	@Autowired
-	public MedicalRecordController(CrudService<MedicalRecordDto> service) {
+	public MedicalRecordController(final CrudService<MedicalRecordDto> service) {
 		super(service);
-		this.logger = LoggerFactory.getLogger(MedicalRecordController.class);
+		logger = LoggerFactory.getLogger(MedicalRecordController.class);
 	}
-// endregion
 }
