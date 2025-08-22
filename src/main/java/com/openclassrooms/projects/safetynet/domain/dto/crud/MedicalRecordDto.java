@@ -1,6 +1,7 @@
 package com.openclassrooms.projects.safetynet.domain.dto.crud;
 
 import com.openclassrooms.projects.safetynet.domain.interfaces.CrudDto;
+import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
