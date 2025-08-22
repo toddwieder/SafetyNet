@@ -21,7 +21,6 @@ public class PersonController extends CrudControllerBase<PersonDto> {
 	 */
 	@Autowired
 	public PersonController(final CrudService<PersonDto> service) {
-		super(service);
-		logger = LoggerFactory.getLogger(PersonController.class);
+		super(service,  LoggerFactory.getLogger(PersonController.class));
 	}
 }

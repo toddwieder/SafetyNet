@@ -21,7 +21,6 @@ public class FirestationController extends CrudControllerBase<FirestationDto> {
 	 */
 	@Autowired
 	public FirestationController(CrudService<FirestationDto> service) {
-		super(service);
-		this.logger = LoggerFactory.getLogger(FirestationController.class);
+		super(service, LoggerFactory.getLogger(FirestationController.class));
 	}
 }
