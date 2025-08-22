@@ -21,7 +21,6 @@ public class MedicalRecordController extends CrudControllerBase<MedicalRecordDto
 	 */
 	@Autowired
 	public MedicalRecordController(final CrudService<MedicalRecordDto> service) {
-		super(service);
-		logger = LoggerFactory.getLogger(MedicalRecordController.class);
+		super(service, LoggerFactory.getLogger(MedicalRecordController.class));
 	}
 }

@@ -33,8 +33,9 @@ public abstract class CrudControllerBase<D extends CrudDto> implements CrudContr
 	 *
 	 * @param crudService the crud service
 	 */
-	protected CrudControllerBase(CrudService<D> crudService) {
+	protected CrudControllerBase(CrudService<D> crudService, Logger logger) {
 		this.crudService = crudService;
+		this.logger = logger;
 	}
 
 	@PostMapping
